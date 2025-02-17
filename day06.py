@@ -4,7 +4,7 @@ def is_even(n) -> bool:
     :param n: 판정할 정수
     :return: 짝수면 True, 홀수면 False
     """
-    if n%2 == 0:
+    if n&1 == 1:
         return True
     return False
 
