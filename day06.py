@@ -21,7 +21,6 @@ def eightjinsu(n):
     return eightjinsu(n//8) + str(n%8)
 
 
-
 def is_even(n) -> bool:
     """
     짝수 판정 함수
