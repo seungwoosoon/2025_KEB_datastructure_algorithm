@@ -68,6 +68,40 @@ def findigin(root,fid):
                 break
             current = current.right
 
+def deligin(root,did):
+    current = root
+    parent = None
+    while True:
+        if current.value == did:
+            if current.left == None and current.right == None:
+                del(current)
+                break
+            elif current.left != None and current.right == None:
+                parent.left = current.left
+                del(current)
+                break
+            elif current.left == None and current.right != None:
+                parent.left = current.right
+                del(current)
+                break
+            elif current.left != None and current.right != None:
+                parent.left = current.right
+                current.right.left = current.left
+                del(current)
+                break
+        elif current.value <did:
+            if current.right is None:
+                print("없다")
+                break
+            parent = current
+            current = current.right
+        elif did < current.value:
+            if current.left is None:
+                print("없다")
+                break
+            parent = current
+            current = current.left
+
 if __name__ == "__main__":
     groups = ['블랙핑크','레드벨벳','마마무','에이핑크','걸스데이','트와이스']
     node = treenode()
@@ -91,4 +125,5 @@ if __name__ == "__main__":
                 current = current.right
         
     findigin(root,'핑클')
+    deligin(root,'에이핑크')
 
