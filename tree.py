@@ -28,25 +28,67 @@ def postorder(root):
 
 
 
-node1=treenode()
-node1.value = "화사"
+# node1=treenode()
+# node1.value = "화사"
 
-node2=treenode()
-node2.value = "솔라"
-node1.left = node2
+# node2=treenode()
+# node2.value = "솔라"
+# node1.left = node2
 
-node3=treenode()
-node3.value = "휘인"
-node2.left = node3
+# node3=treenode()
+# node3.value = "휘인"
+# node2.left = node3
 
-node4=treenode()
-node4.value = "쯔위"
-node2.right = node4
+# node4=treenode()
+# node4.value = "쯔위"
+# node2.right = node4
 
-node5=treenode()
-node5.value = "문별"
-node1.right = node5
+# node5=treenode()
+# node5.value = "문별"
+# node1.right = node5
 
-node6=treenode()
-node6.value = "선미"
-node5.left = node6
+# node6=treenode()
+# node6.value = "선미"
+# node5.left = node6
+
+def findigin(root,fid):
+    current = root
+    while True:
+        if current.value is fid:
+            print(fid, " 찾앗다")
+            break
+        elif fid < current.value:
+            if current.left is None:
+                print("없다")
+                break
+            current = current.left
+        else:
+            if current.right is None:
+                print("없다")
+                break
+            current = current.right
+
+if __name__ == "__main__":
+    groups = ['블랙핑크','레드벨벳','마마무','에이핑크','걸스데이','트와이스']
+    node = treenode()
+    node.value=groups[0]
+    root = node
+
+    for group in groups[1:]:
+        node = treenode()
+        node.value = group
+        current = root
+        while True:
+            if group < current.value:
+                if current.left is None:
+                    current.left = node
+                    break
+                current = current.left
+            elif group > current.value:
+                if current.right is None:
+                    current.right = node
+                    break
+                current = current.right
+        
+    findigin(root,'핑클')
+
