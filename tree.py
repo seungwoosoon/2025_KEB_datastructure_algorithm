@@ -67,40 +67,42 @@ def findigin(root,fid):
                 print("없다")
                 break
             current = current.right
+def deligin(root, key):
+    # 기저 조건: 아무 노드도 없으면 그냥 None 반환
+    if root is None:
+        return None
 
-def deligin(root,did):
-    current = root
-    parent = None
-    while True:
-        if current.value == did:
-            if current.left == None and current.right == None:
-                del(current)
-                break
-            elif current.left != None and current.right == None:
-                parent.left = current.left
-                del(current)
-                break
-            elif current.left == None and current.right != None:
-                parent.left = current.right
-                del(current)
-                break
-            elif current.left != None and current.right != None:
-                parent.left = current.right
-                current.right.left = current.left
-                del(current)
-                break
-        elif current.value <did:
-            if current.right is None:
-                print("없다")
-                break
-            parent = current
-            current = current.right
-        elif did < current.value:
-            if current.left is None:
-                print("없다")
-                break
-            parent = current
-            current = current.left
+    # 삭제할 노드를 찾기 위한 재귀 탐색
+    if key < root.value:
+        root.left = deligin(root.left, key)
+    elif key > root.value:
+        root.right = deligin(root.right, key)
+    else:
+        # 삭제할 노드를 찾은 경우 (root.value == key)
+
+        # Case 1: 자식이 없는 경우
+        if root.left is None and root.right is None:
+            return None
+
+        # Case 2: 한쪽 자식만 있는 경우
+        if root.left is None:
+            return root.right
+        if root.right is None:
+            return root.left
+
+        # Case 3: 두 자식이 모두 있는 경우
+        # Inorder successor(오른쪽 서브트리의 가장 왼쪽 노드)를 찾는다.
+        successor = root.right
+        while successor.left:
+            successor = successor.left
+        
+        # 현재 노드의 값을 successor의 값으로 교체
+        root.value = successor.value
+
+        # 오른쪽 서브트리에서 successor 노드를 삭제
+        root.right = delete_node(root.right, successor.value)
+    
+    return root
 
 if __name__ == "__main__":
     groups = ['블랙핑크','레드벨벳','마마무','에이핑크','걸스데이','트와이스']
