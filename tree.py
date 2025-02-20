@@ -100,9 +100,40 @@ def deligin(root, key):
         root.value = successor.value
 
         # 오른쪽 서브트리에서 successor 노드를 삭제
-        root.right = delete_node(root.right, successor.value)
+        root.right = deligin(root.right, successor.value)
     
     return root
+
+def isertnode(root,value):
+    current = root
+    node = treenode()
+    node.value = value
+    while True:
+        if value < current.value:
+            if current.left is None:
+                current.left = node
+                break
+            current = current.left
+        elif value > current.value:
+            if current.right is None:
+                current.right = node
+                break
+            current = current.right
+        else:
+            break
+
+def deletenode(root, did):
+    if root is None:
+        return None
+    
+    if did < root.value:
+        root.left = deletenode(root.left,did)
+    elif did > root.value:
+        root.right = deletenode(root.right,did)
+    else:
+        if root.left is None and root.right is None:
+            return None
+        elif
 
 if __name__ == "__main__":
     groups = ['블랙핑크','레드벨벳','마마무','에이핑크','걸스데이','트와이스']
@@ -111,21 +142,10 @@ if __name__ == "__main__":
     root = node
 
     for group in groups[1:]:
-        node = treenode()
-        node.value = group
-        current = root
-        while True:
-            if group < current.value:
-                if current.left is None:
-                    current.left = node
-                    break
-                current = current.left
-            elif group > current.value:
-                if current.right is None:
-                    current.right = node
-                    break
-                current = current.right
+        isertnode(root,group)
         
     findigin(root,'핑클')
+    preorder(root)
     deligin(root,'에이핑크')
+    preorder(root)
 
