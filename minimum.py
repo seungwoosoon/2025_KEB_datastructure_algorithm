@@ -1,3 +1,4 @@
+from collections import deque
 class Graph:
    def __init__(self, size) :
       self.SIZE = size
@@ -54,9 +55,21 @@ def findvert(g,fin,visited):
         findvert(g,i,visited)
    return
 
+def bfs(g,fid,visited):
+   queue = deque([fid])
+   visited[fid] = 1
+   while queue:
+    fid = queue.popleft()  
+    for i in range(g.SIZE):
+        if g.graph[fid][i] and not visited[i]:
+            queue.append(i)
+            visited[i] = 1
+         
+   return
+
 def is_visit(g,fin):
     visited = [0] * g.SIZE
-    findvert(g,fin,visited)
+    bfs(g,fin,visited)
     if sum(visited) == len(visited):
         return True
     else:
@@ -111,7 +124,8 @@ while len(new_ary) > g_size - 1:   # 간선의 개수가 '정점 개수-1'일 �
 
    startYN = is_visit(G1, start)
    endYN = is_visit(G1, end)
-
+#    startYN = find_vertex(G1, start)
+#    endYN = find_vertex(G1, end)
    if startYN and endYN :
       del new_ary[index]
    else :
