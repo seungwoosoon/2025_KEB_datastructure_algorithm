@@ -1,3 +1,4 @@
+from collections import deque
 class treenode():
      def __init__(self, value=0, left=None, right=None):
         self.value = value
@@ -122,18 +123,23 @@ def isertnode(root,value):
         else:
             break
 
-def deletenode(root, did):
+def cntlentree(root):
     if root is None:
-        return None
-    
-    if did < root.value:
-        root.left = deletenode(root.left,did)
-    elif did > root.value:
-        root.right = deletenode(root.right,did)
-    else:
-        if root.left is None and root.right is None:
-            return None
-        elif
+        return 0
+    return 1+cntlentree(root.left)+cntlentree(root.right)
+
+def bfs(node):
+    if node is None:
+        return
+
+    queue = deque([node])
+    while queue:
+        current = queue.popleft()
+        print(f"{current.value}", end=' ')
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
 
 if __name__ == "__main__":
     groups = ['블랙핑크','레드벨벳','마마무','에이핑크','걸스데이','트와이스']
@@ -147,5 +153,8 @@ if __name__ == "__main__":
     findigin(root,'핑클')
     preorder(root)
     deligin(root,'에이핑크')
+    print()
     preorder(root)
+    print()
+    bfs(root)
 
